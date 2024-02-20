@@ -13,54 +13,22 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-import \
-    os, \
-    re
+import os, re
 
-from django.contrib import \
-    admin
-from django.urls import \
-    path, \
-    re_path, \
-    include
-from django.views.static import \
-    serve
+from django.contrib import admin
+from django.urls import path, re_path, include
+from django.views.static import serve
 
-from cms.settings import \
-    ADMIN_SITE_URL, \
-    MEDIA_ROOT, \
-    MEDIA_URL, \
-    STATIC_ROOT, \
-    STATIC_URL, \
-    BASE_DIR
-from cms.views import \
-    AsyncPasswordResetView, \
-    IndexView, \
-    file
+from cms.settings import ADMIN_SITE_URL, MEDIA_ROOT, MEDIA_URL, STATIC_ROOT, STATIC_URL, BASE_DIR
+from cms.views import AsyncPasswordResetView, IndexView, file
 
 urlpatterns = [
     path(os.path.join(ADMIN_SITE_URL, "password_reset/"), AsyncPasswordResetView.as_view(), name="admin_password_reset"),
     path("", IndexView.as_view()),
     path(ADMIN_SITE_URL, admin.site.urls),
     path(ADMIN_SITE_URL, include("django.contrib.auth.urls")),
-    re_path(
-        r"^%s(?P<path>.*)$" % re.escape(MEDIA_URL.lstrip("/")), serve, {
-            "document_root": MEDIA_ROOT}
-    ),
-    re_path(
-        r"^%s(?P<path>.*)$" % re.escape(STATIC_URL.lstrip("/")), serve, {
-            "document_root": STATIC_ROOT}
-    ),
-    path(
-        "robots.txt", file, {
-            "document_root": BASE_DIR / "static",
-            "content_type": "text/plain",
-        }, name="robots"
-    ),
-    path(
-        "LICENSE", file, {
-            "document_root": BASE_DIR,
-            "content_type": "text/plain",
-        }, name="license"
-    ),
+    re_path(r"^%s(?P<path>.*)$" % re.escape(MEDIA_URL.lstrip("/")), serve, {"document_root": MEDIA_ROOT}),
+    re_path(r"^%s(?P<path>.*)$" % re.escape(STATIC_URL.lstrip("/")), serve, {"document_root": STATIC_ROOT}),
+    path("robots.txt", file, {"document_root": BASE_DIR / "static", "content_type": "text/plain", }, name="robots"),
+    path("LICENSE", file, {"document_root": BASE_DIR, "content_type": "text/plain", }, name="license"),
 ]

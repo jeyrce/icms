@@ -1,20 +1,13 @@
-import \
-    os.path
+import os.path
 
-from django.contrib.auth.views import \
-    PasswordResetView
-from django.views import \
-    View
-from django.shortcuts import \
-    render
+from django.contrib.auth.views import PasswordResetView
+from django.views import View
+from django.shortcuts import render
 from django.views.static import *
-from django.utils.translation import \
-    gettext as _
+from django.utils.translation import gettext as _
 
-from cms.forms import \
-    AsyncPasswordResetForm
-from cms.settings import \
-    ADMIN_SITE_URL
+from cms.forms import AsyncPasswordResetForm
+from cms.settings import ADMIN_SITE_URL
 
 
 class AsyncPasswordResetView(PasswordResetView):

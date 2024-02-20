@@ -1,8 +1,6 @@
-from django.contrib.auth.forms import \
-    PasswordResetForm
+from django.contrib.auth.forms import PasswordResetForm
 
-from jobs import \
-    async_send_mail
+from jobs import async_send_mail
 
 
 class AsyncPasswordResetForm(PasswordResetForm):
@@ -19,4 +17,5 @@ class AsyncPasswordResetForm(PasswordResetForm):
             to_email,
             html_email_template_name=None,
     ):
-        async_send_mail.delay(subject_template_name, email_template_name, context, from_email, to_email, html_email_template_name)
+        async_send_mail.delay(subject_template_name, email_template_name, context, from_email, to_email,
+                              html_email_template_name)

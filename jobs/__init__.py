@@ -1,13 +1,9 @@
-import \
-    os
+import os
 
-import \
-    django
-from celery import \
-    Celery
+import django
+from celery import Celery
 
-from .mail import \
-    async_send_mail
+from .mail import async_send_mail
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "cms.settings")
 django.setup()
